@@ -10,8 +10,21 @@ class TodoCubit extends Cubit<List<Todo>> {
   TodoCubit() : super([]);
 
   void addTodo(String title){
+    if(title.isEmpty){
+      addError("Title cannot be Empty!");
+      return;
+    }
     final todo = Todo(name: title, createdAt: DateTime.now());
-    state.add(todo);
-    emit([...state]);
+    emit([...state,todo]);
+  }
+
+  @override
+  void onChange(change){
+    super.onChange(change);
+  }
+
+  @override
+  void onError(Object error, StackTrace stackTrace) {
+    super.onError(error, stackTrace);
   }
 }
